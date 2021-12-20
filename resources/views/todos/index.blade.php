@@ -323,10 +323,10 @@
               <td>{{$todo->created_at}}</td>
               <td><input type="text" class="input-update" value="{{$todo->content}}" name="content"></td>
               <td>
-              <form action="/todo/create" method="post">
+              <form action="/" method="post">
                   @csrf
                   {{ method_field('get') }}
-                  <button type="submit" class="btn btn-primary"  value="{{$todo->content}}">更新</button>
+                  <button type="submit" class="btn btn-primary" >更新</button>
                   </form>
               </td>
              
