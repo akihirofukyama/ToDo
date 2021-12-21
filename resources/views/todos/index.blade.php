@@ -304,6 +304,15 @@
     <div class="container">
         <div class="card">
         <p class="title mb-15">Todo List</p>
+        @if ($errors->any())
+	    <div class="alert alert-danger">
+	        <ul>
+	            @foreach ($errors->all() as $error)
+	                <li>{{ $error }}</li>
+	            @endforeach
+	        </ul>
+	    </div>
+	@endif
             <div class="todo">
             <form action="/" method="post" class="flex between mb-30">
             {{csrf_field()}}
@@ -320,20 +329,22 @@
 
           @foreach ($todos as $todo)
           <tr>
-              <td>{{$todo->created_at}}</td>
+              <td>{{$todo->updated_at}}</td>
               <td><input type="text" class="input-update" value="{{$todo->content}}" name="content"></td>
+              <td></td>
               <td>
-              <form action="/" method="post">
-                  @csrf
-                  {{ method_field('get') }}
-                  <button type="submit" class="btn btn-primary" >更新</button>
-                  </form>
-              </td>
-             
+              <form action="{{ route('delete', $todo->id) }}" method="post">
+              @csrf
+              @method('delete')                
+              <button type="submit" class="button-delete">削除</button>
+              </form>
+            </td>
+            
+       
 
              
 
-            </tr>
+           </tr>
             @endforeach
           
             
