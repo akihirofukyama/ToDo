@@ -30,11 +30,25 @@ class TodosController extends Controller
     //  }
 
     function update(Request $request){
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|min:0|max:20',
+        ],
+        [
+        'content.max:20' =>'The content must not be greater than 20 characters.'
+        ]);  
+        if ($validator->fails()) {
+            return redirect('/')
+            ->withErrors($validator)
+                ->withInput();
+
+        } else{
+
         Todo::find($request->id)->update([
             'content'=> $request->content,
         ]);
         return redirect('/');
     }
+}
 
      function delete(Request $request){
         Todo::find($request->id)->delete();
@@ -47,7 +61,7 @@ class TodosController extends Controller
             'content' => 'required|min:0|max:20',
         ],
         [
-        'content.required' =>'The content must not be greater than 20 characters.'
+        'content.max:20' =>'The content must not be greater than 20 characters.'
         ]);  
         if ($validator->fails()) {
             return redirect('/')
