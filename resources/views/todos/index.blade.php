@@ -329,9 +329,16 @@
 
           @foreach ($todos as $todo)
           <tr>
-              <td>{{$todo->updated_at}}</td>
+          <form action="{{ route('update', ['id'=>$todo->id]) }}" method="post">
+          @csrf
+          @method('put')     
+          <td>{{$todo->updated_at}}</td>
               <td><input type="text" class="input-update" value="{{$todo->content}}" name="content"></td>
-              <td></td>
+              <td> 
+                           
+              <button type="submit" class="button-update">更新</button>
+              </form>
+            </td>
               <td>
               <form action="{{ route('delete', $todo->id) }}" method="post">
               @csrf
